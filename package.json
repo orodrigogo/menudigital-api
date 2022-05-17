@@ -6,7 +6,8 @@
   "author": "Rodrigo Gonçalves Santana",
   "license": "ISC",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "migrate": "knex migrate:latest"
   },
   "dependencies": {
     "express": "^4.18.1",
