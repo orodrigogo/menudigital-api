@@ -5,6 +5,7 @@ exports.up = knex => knex.schema
     table.text("email");
     table.text("senha");
     table.text("foto");
+    table.boolean("admin").default(false);
 
     table.timestamp("criado_em").default(knex.fn.now());
     table.timestamp("atualizado_em").default(knex.fn.now());

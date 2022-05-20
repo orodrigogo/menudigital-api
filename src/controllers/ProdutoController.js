@@ -3,6 +3,13 @@ const banco = require("../database");
 class ProdutoController {
     async create(req, res) {
         const { nome, descricao, valor, foto } = req.body;
+        const  user_id = req.user.id;
+
+        const usuario = await banco("usuarios").where({ id: user_id}).first();
+        
+        if(!usuario.admin){
+            return res.send("Usuário não tem permissão.");
+        }
 
         await banco("produtos").insert({
             nome,
@@ -17,6 +24,14 @@ class ProdutoController {
     async update(req, res){
         const { id } = req.params;
         const { nome, valor, descricao, foto } = req.body;
+
+        const  user_id = req.user.id;
+
+        const usuario = await banco("usuarios").where({ id: user_id}).first();
+        
+        if(!usuario.admin){
+            return res.send("Usuário não tem permissão.");
+        }
     
         const produto = await banco("produtos").where({ id }).first();
     
@@ -35,6 +50,13 @@ class ProdutoController {
 
     async delete(req, res){
         const { id } = req.params;
+        const  user_id = req.user.id;
+
+        const usuario = await banco("usuarios").where({ id: user_id}).first();
+        
+        if(!usuario.admin){
+            return res.send("Usuário não tem permissão.");
+        }
 
         await banco("produtos").where({ id }).delete();
         
